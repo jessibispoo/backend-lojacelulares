@@ -1,10 +1,13 @@
 {
   "name": "backend-lojacelulares",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API da loja de celulares (Node, Express, TypeScript, MongoDB)",
+  "main": "dist/server.js",
+  "type": "module",
   "scripts": {
-    "type": "module",
+    "dev": "npx ts-node src/server.ts",
+    "build": "tsc",
+    "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -12,18 +15,27 @@
     "url": "git+https://github.com/jessibispoo/backend-lojacelulares.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "jessibispoo",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/jessibispoo/backend-lojacelulares/issues"
   },
   "homepage": "https://github.com/jessibispoo/backend-lojacelulares#readme",
   "dependencies": {
-    "bcrypt": "^6.0.0",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.19.2"
+    "mongoose": "^8.8.0"
+  },
+  "devDependencies": {
+    "@types/bcryptjs": "^2.4.2",
+    "@types/cors": "^2.8.17",
+    "@types/express": "^4.17.21",
+    "@types/jsonwebtoken": "^9.0.3",
+    "@types/node": "^22.19.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }
