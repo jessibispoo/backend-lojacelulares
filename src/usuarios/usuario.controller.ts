@@ -1,7 +1,10 @@
-import { Request, Response } from 'express'
+import type { Request, Response } from 'express'
 import { db } from '../database/banco-mongo.js'
 import jwt from 'jsonwebtoken'
 import bcrypt from 'bcrypt'
+
+
+
 class UsuariosController {
     async adicionar(req: Request, res: Response) {
         const { nome, idade, email, senha } = req.body

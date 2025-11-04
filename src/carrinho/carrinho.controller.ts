@@ -1,10 +1,6 @@
 
 import { ObjectId } from "bson";
 import { db } from "../database/banco-mongo.js";
-
-
-
-
 import express from "express";             // valores
 import type { Request, Response, NextFunction } from "express";  // tipos
 

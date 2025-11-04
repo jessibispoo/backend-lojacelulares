@@ -1,4 +1,4 @@
-import { Request, Response } from 'express';
+import type { Request, Response } from 'express';
 import { db } from '../database/banco-mongo.js';
 class ProdutoController {
     async adicionar(req:Request, res:Response) {
