@@ -1,3 +1,4 @@
+//parte manu
 import type { Request, Response } from 'express';
 import { db } from '../database/banco-mongo.js';
 class ProdutoController {
