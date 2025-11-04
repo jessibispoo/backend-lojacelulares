@@ -1,72 +1,20 @@
-import express, { Request, Response, NextFunction } from "express";
-import bcrypt from "bcryptjs";
+import express from "express";
+import type { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import { Usuario } from "../usuarios/usuario.controller.js";
-
-const router = express.Router();
+import Usuario from "../usuarios/usuario.controller.js"; // se for default export
+import e from "express";
 const SECRET = process.env.JWT_SECRET || "segredo";
 
+export const verificarToken = (req: Request, res: Response, next: NextFunction) => {
+    const token = req.headers.authorization?.split(" ")[1];
+    if (!token) return res.status(401).json({ msg: "Token não fornecido" });
 
-//middleware de autenticação
-export const authMiddleware = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const authHeader = req.headers.authorization;
-
-  if (!authHeader) {
-    return res.status(401).json({ message: "Token não fornecido" });
-  }
-
-  const token = authHeader.split(" ")[1];
-
-  try {
-    const decoded = jwt.verify(token, SECRET);
-    //
-    req.user = decoded; // guarda o usuário decodificado (id, tipo, etc.)
-    next();
-  } catch (err) {
-    return res.status(401).json({ message: "Token inválido" });
-  }
+    try {
+        const decoded = jwt.verify(token, SECRET);
+        (req as any).user = decoded; // se quiser evitar TS aqui
+        next();
+    } catch (err) {
+        return res.status(401).json({ msg: "Token inválido" });
+    }
 };
-
-
-//rota de login
-router.post("/login", async (req: Request, res: Response) => {
-  const { email, senha } = req.body;
-
-  try {
-    const usuario = await Usuario.findOne({ email });
-    if (!usuario)
-      return res.status(401).json({ message: "Usuário não encontrado" });
-
-    const senhaValida = await bcrypt.compare(senha, usuario.senha);
-    if (!senhaValida)
-      return res.status(401).json({ message: "Senha incorreta" });
-
-    const token = jwt.sign(
-      { id: usuario._id, tipo: usuario.tipo },
-      SECRET,
-      { expiresIn: "1d" }
-    );
-
-    res.json({
-      token,
-      tipo: usuario.tipo,
-    });
-  } catch (error) {
-    console.error("Erro no login:", error);
-    res.status(500).json({ message: "Erro interno no login" });
-  }
-});
-
-//exemplo de rota protegida
-router.get("/perfil", authMiddleware, async (req: Request, res: Response) => {
-  //
-  const { id } = req.user;
-  const usuario = await Usuario.findById(id).select("-senha");
-  res.json(usuario);
-});
-
-export default router;
+export default { verificarToken };
