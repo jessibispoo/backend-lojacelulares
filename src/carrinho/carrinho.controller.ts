@@ -155,4 +155,5 @@ class CarrinhoController {
         return res.status(200).json({ mensagem: "Carrinho removido com sucesso" });
     }
 }
+
 export default new CarrinhoController();

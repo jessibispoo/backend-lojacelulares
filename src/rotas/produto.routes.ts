@@ -1,6 +1,6 @@
 //pate manu
 import { Router } from "express";
-import ProdutoController from "../controllers/produtos/produto.controller.js";
+import ProdutoController from "../produtos/produto.controller.js";
 
 const router = Router();
 
