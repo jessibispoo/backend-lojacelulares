@@ -156,4 +156,19 @@ class CarrinhoController {
     }
 }
 
+import mongoose from "mongoose";
+
+const itemSchema = new mongoose.Schema({
+  produtoId: { type: mongoose.Schema.Types.ObjectId, ref: "Produto", required: true },
+  quantidade: { type: Number, required: true, min: 1 }
+});
+
+const carrinhoSchema = new mongoose.Schema({
+  usuarioId: { type: mongoose.Schema.Types.ObjectId, ref: "Usuario", required: true },
+  itens: [itemSchema],
+  total: { type: Number, default: 0 }
+});
+
+export const Carrinho = mongoose.model("Carrinho", carrinhoSchema);
+
 export default new CarrinhoController();

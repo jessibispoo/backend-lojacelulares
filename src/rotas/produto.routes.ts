@@ -1,4 +1,4 @@
-//pate manu
+//parte manu
 import { Router } from "express";
 import ProdutoController from "../produtos/produto.controller.js";
 
@@ -8,3 +8,4 @@ router.get("/produtos", ProdutoController.listar);
 router.post("/produtos", ProdutoController.adicionar);
 
 export default router;
+

@@ -1,3 +1,6 @@
+//parte 
+import mongoose from "mongoose";
+
 //parte manu
 import express from "express";
 import cors from "cors";

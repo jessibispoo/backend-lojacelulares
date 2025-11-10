@@ -45,5 +45,18 @@ class UsuariosController {
         res.status(200).json({token:token})
     }
 }
+import mongoose from "mongoose";
+
+const usuarioSchema = new mongoose.Schema({
+  nome: { type: String, required: true },
+  email: { type: String, required: true, unique: true },
+  senha: { type: String, required: true },
+  tipo: { type: String, enum: ["admin", "usuario"], default: "usuario" },
+  criadoEm: { type: Date, default: Date.now },
+  ativo: { type: Boolean, default: true }
+});
+
+export const Usuario = mongoose.model("Usuario", usuarioSchema);
+
 
 export default new UsuariosController()
